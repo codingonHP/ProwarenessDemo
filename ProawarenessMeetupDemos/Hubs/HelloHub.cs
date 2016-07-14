@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -38,15 +39,22 @@ namespace ProawarenessMeetupDemos.Hubs
 
         public void SayHelloWorld()
         {
-            string message = "hello world";
+            string message = "hello world<br/>";
+
+            var env = Context.Request.Environment;
+           
+            foreach (var key in env.Keys)
+            {
+                object value;
+                if (env.TryGetValue(key, out value))
+                {
+                    message += $"{key} => {value as string}<br/>";
+                }
+            }
+
             Clients.All.sayHello(message);
         }
 
        
-    }
-
-    public class HelloPersistance : PersistentConnection
-    {
-        
     }
 }
