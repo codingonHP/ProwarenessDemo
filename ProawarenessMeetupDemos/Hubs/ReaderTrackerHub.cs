@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.SignalR;
 
 namespace ProawarenessMeetupDemos.Hubs
@@ -22,7 +18,7 @@ namespace ProawarenessMeetupDemos.Hubs
         private readonly IHubContext _hubContext;
         private Timer _broadcastLoop;
         private TrackModel _model;
-        private bool _modelUpdated;
+        private bool _trackInfoUpdated;
 
         public static BroadCaster Instance => _instance.Value;
 
@@ -32,7 +28,7 @@ namespace ProawarenessMeetupDemos.Hubs
             // to send to its connected clients
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<ReaderTrackerHub>();
             _model = new TrackModel();
-            _modelUpdated = false;
+            _trackInfoUpdated = false;
 
             // Start the broadcast loop
             _broadcastLoop = new Timer(BroadcastTrackInfo, null, _broadcastInterval, _broadcastInterval);
@@ -41,19 +37,19 @@ namespace ProawarenessMeetupDemos.Hubs
         public void BroadcastTrackInfo(object state)
         {
             // No need to send anything if our model hasn't changed
-            if (_modelUpdated)
+            if (_trackInfoUpdated)
             {
                 // This is how we can access the Clients property 
                 // in a static hub method or outside of the hub entirely
                 _hubContext.Clients.AllExcept(_model.ConnectionId).notifyClients(_model);
-                _modelUpdated = false;
+                _trackInfoUpdated = false;
             }
         }
 
         public void UpdateTrackInfo(TrackModel clientModel)
         {
             _model = clientModel;
-            _modelUpdated = true;
+            _trackInfoUpdated = true;
         }
 
         
