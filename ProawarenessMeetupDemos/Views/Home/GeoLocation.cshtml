@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "GeoLocation";
+}
+
+<style type="text/css">
+    #map {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<h2>Geo Location</h2>
+
+<div id="map" class="container-fluid"></div>
+
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyB8kwQ-Ld2gftLEsrYAGjqtZjzSmbuMAmo"></script>
+<script src="~/Scripts/gmaps.js"></script>
+@section scripts{
+    <script>
+        $(function () {
+
+            var myLocation = {
+                lat : '',
+                lon : ''
+            };
+
+            var map = new GMaps({
+                el: '#map',
+                lat: -12.043333,
+                lng: -77.028333
+            });
+
+
+            function addMarker(position) {
+
+                map.addMarker({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                });
+            }
+
+            GMaps.geolocate({
+                success: function (position) {
+                    myLocation.lat = position.coords.latitude;
+                    myLocation.lon = position.coords.longitude;
+
+                    map.setCenter(myLocation.lat, myLocation.lon);
+                    addMarker(position);
+                   
+                },
+                error: function (error) {
+                    alert('Geolocation failed: ' + error.message);
+                },
+                not_supported: function () {
+                    alert("Your browser does not support geolocation");
+                },
+                always: function () {
+                    map.zoomOut(13);
+                }
+            });
+
+            var geoHub = $.connection.geoLocationHub;
+
+            geoHub.client.onClientConnect = function (position) {
+                var location = {
+                    coords: { latitude: position.lat, longitude: position.lon }
+                }
+
+                addMarker(location);
+            }
+
+            $.connection.hub.start().done(function () {
+                geoHub.server.updateNetwork(myLocation);
+            });
+
+            //testing code : points somewhere in peru..
+            //$(document).on('click', function () {
+
+            //    addMarker({
+            //        coords: { latitude: -12.043333, longitude: -77.028333 }
+            //    });
+            //});
+
+        });
+    </script>
+}

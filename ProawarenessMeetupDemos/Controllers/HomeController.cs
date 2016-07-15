@@ -18,6 +18,11 @@ namespace ProawarenessMeetupDemos.Controllers
             return View();
         }
 
+        public ActionResult GeoLocation()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
