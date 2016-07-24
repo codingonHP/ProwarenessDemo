@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ProawarenessMeetupDemos.Controllers
+namespace Admin.Controllers
 {
     public class HomeController : Controller
     {
@@ -13,20 +13,6 @@ namespace ProawarenessMeetupDemos.Controllers
             return View();
         }
 
-        public ActionResult TrackingReaders()
-        {
-            return View();
-        }
-
-        public ActionResult GeoLocation()
-        {
-            return View();
-        }
-
-        public ActionResult ChatApp()
-        {
-            return View();
-        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
