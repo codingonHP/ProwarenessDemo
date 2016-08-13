@@ -27,6 +27,7 @@ namespace ProawarenessMeetupDemos.Controllers
         {
             return View();
         }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -38,6 +39,11 @@ namespace ProawarenessMeetupDemos.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult DrawingBoard()
+        {
             return View();
         }
     }

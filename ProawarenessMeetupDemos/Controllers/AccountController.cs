@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProawarenessMeetupDemos.Models;
+using ProawarenessMeetupDemos.Utils;
 
 namespace ProawarenessMeetupDemos.Controllers
 {
@@ -17,6 +18,7 @@ namespace ProawarenessMeetupDemos.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private static object _lock = new object();
 
         public AccountController()
         {
@@ -73,12 +75,15 @@ namespace ProawarenessMeetupDemos.Controllers
                 return View(model);
             }
 
+            
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    ManageSession(model.Email, model.ConnectionId);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -89,6 +94,16 @@ namespace ProawarenessMeetupDemos.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        private void ManageSession(string email, string connectionId)
+        {
+            ClientManager clientManager = new ClientManager();
+            HubManager hubConnector = new HubManager();
+            string userId;
+
+            clientManager.IsSessionActive(email, out userId);
+            clientManager.AddToActiveLoggedInClientList(userId, connectionId);
         }
 
         //

@@ -60,6 +60,8 @@ namespace ProawarenessMeetupDemos.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public string ConnectionId { get; set; }
     }
 
     public class RegisterViewModel

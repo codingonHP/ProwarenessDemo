@@ -96,6 +96,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -207,24 +209,71 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Database\ActiveSession.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetRole.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUser.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUserClaim.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUserLogin.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\C__MigrationHistory.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Proawareness.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Proawareness.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Proawareness.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Proawareness.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Proawareness.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\DrawingHub.cs" />
     <Compile Include="Hubs\GeoLocationHub.cs" />
     <Compile Include="Hubs\HelloHub.cs" />
     <Compile Include="Hubs\ReaderTrackerHub.cs" />
+    <Compile Include="Hubs\UserLoginHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\ClientManager.cs" />
+    <Compile Include="Utils\HubManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Database\Proawareness.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Proawareness.edmx</DependentUpon>
+      <LastGenOutput>Proawareness.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\Proawareness.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Proawareness.edmx</DependentUpon>
+      <LastGenOutput>Proawareness.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -242,6 +291,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Database\Proawareness.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Proawareness.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Database\Proawareness.edmx.diagram">
+      <DependentUpon>Proawareness.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -300,6 +356,7 @@
     <Content Include="Views\Home\TrackingReaders.cshtml" />
     <Content Include="Views\Home\GeoLocation.cshtml" />
     <Content Include="Views\Home\ChatApp.cshtml" />
+    <Content Include="Views\Home\DrawingBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,6 +366,9 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

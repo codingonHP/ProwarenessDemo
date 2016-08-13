@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "DrawingBoard";
+}
+
+<h2>Drawing Board</h2>
+
+<style>
+    canvas {
+        border: 3px solid gray;
+    }
+</style>
+
+<div>
+    <div>
+        <label for="color">Color : </label>
+        <select id="color">
+            <option>Black</option>
+            <option>Red</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option>Yello</option>
+        </select>
+    </div>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <br />
+    <button id="clear">Clear</button>
+</div>
+
+@section scripts{
+    <script>
+        $(function() {
+
+            var connection = $.connection;
+            var hub = connection.hub;
+            var hubProxy = connection.drawingHub;
+            var connected = false;
+
+            var canvas = $("#canvas");
+            var buttonPressed = false;
+
+            canvas.on('mousedown', function() {
+                    buttonPressed = true;
+                })
+                .on('mouseup', function() {
+                    buttonPressed = false;
+                })
+                .on('mousemove', function(e) {
+                    if (buttonPressed) {
+                        setPoint(e.offsetX, e.offsetY, $("#color").val());
+                    }
+
+                    if (buttonPressed && connected) {
+                        hubProxy.server.broadcastPoint(e.offsetX, e.offsetY);
+                    }
+                });
+
+            var ctx = canvas[0].getContext("2d");
+
+            function setPoint(x, y, color) {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            function clearPoints() {
+                ctx.clearRect(0, 0, canvas.width(), canvas.height());
+                hubProxy.server.broadcastClear();
+            }
+
+            $("#clear").on('click', function() {
+                clearPoints();
+            });
+
+            $("#color").on('change', function() {
+                hub.state.color = $(this).val();
+            });
+
+            hubProxy.client.clear = function() {
+                clearPoints();
+            }
+
+            hubProxy.client.drawPoints = function(x, y, color) {
+                setPoint(x, y, color);
+            }
+
+            hub.start().done(function () {
+                connected = true;
+            });
+
+
+        });
+    </script>
+}

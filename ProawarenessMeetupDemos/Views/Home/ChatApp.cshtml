@@ -4,4 +4,56 @@
 }
 
 <h2>Chat-App</h2>
+<textarea id="messageBox"></textarea>
+<br/>
+<input id="onlyto"/>
+<br/>
+<button id="sendMessage">Send</button>
+<div id="allMessages"></div>
 
+@section scripts{
+    <script>
+        $(function () {
+            var connection = $.connection;
+            var hub = connection.hub;
+            var hubProxy = connection.chatHub;
+            var connected = false;
+
+            hubProxy.client.received = function (msg) {
+                if (connected) {
+                    var newMessage = $("<div>", {
+                        text: msg.message,
+                        class: 'all-msg'
+                    });
+
+                    $('#allMessages').append(newMessage);
+                }
+            }
+
+            $("#sendMessage").on('click', function () {
+                if (connected) {
+                    var message = $("#messageBox").val();
+                    var onlyTo = $("#onlyto").val();
+
+                    if (message !== '' && onlyTo === '') {
+                        hubProxy.server.send(message);
+                    }else if (message !== '') {
+                        hubProxy.server.send(message, onlyTo);
+                    }
+
+                } else {
+                    alert('connection is not yet established..');
+                }
+            });
+
+            hub.start().done(function () {
+                console.log('connected...');
+                connected = true;
+
+            })
+            .fail(function () {
+                alert('something is not right at the moment');
+            });
+        });
+    </script>
+}
