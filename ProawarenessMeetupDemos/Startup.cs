@@ -1,5 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
 using Owin;
+using ProawarenessMeetupDemos.Hubs;
 
 [assembly: OwinStartupAttribute(typeof(ProawarenessMeetupDemos.Startup))]
 namespace ProawarenessMeetupDemos
@@ -9,6 +11,9 @@ namespace ProawarenessMeetupDemos
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            //var IdProvider = new ConnectionFactory();
+            //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => IdProvider);
+
             app.MapSignalR();
         }
     }

@@ -4,23 +4,26 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using ProawarenessMeetupDemos.Database;
+using ProawarenessMeetupDemos.Hubs;
 
 namespace ProawarenessMeetupDemos.Utils
 {
     public class ClientManager
     {
-        internal bool IsSessionActive(string userName, out string userId)
+       
+        internal void LogOutFromAllClients(string userName)
         {
             using (var context = new ProwarenessContext())
             {
-                var user = context.AspNetUsers.FirstOrDefault(u => u.UserName.Equals(userName));
-                if (user != null)
-                {
-                    userId = user.Id;
-                    return user.ActiveSessions?.Any() ?? false;
-                }
+                var userId = context.AspNetUsers.First(u => u.UserName == userName).Id;
+                var allLoggedInClients = context.ActiveSessions.Where(a => a.UserId == userId);
+                var allLoggedInClientsIds = allLoggedInClients.Select(x => x.SessionID).ToList();
 
-                throw new KeyNotFoundException($"user not found : {userName}");
+                context.ActiveSessions.RemoveRange(allLoggedInClients);
+                var userLoginHubContext = GlobalHost.ConnectionManager.GetHubContext<UserLoginHub>();
+                userLoginHubContext.Clients.Clients(allLoggedInClientsIds).LogOut();
+
+                context.SaveChanges();
             }
         }
 
@@ -28,7 +31,7 @@ namespace ProawarenessMeetupDemos.Utils
         {
             if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(connectionId))
             {
-                throw new ArgumentNullException("userId or connectionId is null or empty");
+                return;
             }
 
             using (var context = new ProwarenessContext())
@@ -36,12 +39,32 @@ namespace ProawarenessMeetupDemos.Utils
                 context.ActiveSessions.Add(new ActiveSession
                 {
                     ConnectedAt = DateTime.Now,
-                    UserId = userId,
-                    SessionID = new Guid(connectionId)
+                    UserId = context.AspNetUsers.FirstOrDefault(u => u.UserName == userId).Id,
+                    SessionID = connectionId
                 });
 
                 context.SaveChanges();
             }
+        }
+
+        internal void RemoveUserFromClientsList(string userId, string connectionId)
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(connectionId))
+            {
+                return;
+            }
+
+            using (var context = new ProwarenessContext())
+            {
+                var client = context.ActiveSessions.Where(s => s.SessionID == connectionId);
+                if (client != null)
+                {
+                    context.ActiveSessions.RemoveRange(client);
+                    context.SaveChanges();
+
+                }
+            }
+
         }
 
     }

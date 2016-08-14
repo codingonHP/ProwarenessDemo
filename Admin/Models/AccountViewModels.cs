@@ -58,6 +58,8 @@ namespace Admin.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        public string ConnectionId { get; set; }
+
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }

@@ -18,14 +18,12 @@
     <script>
         $(window)
             .on('load',
-                function() {
-                    var connection = $.connection;
-                    var helloHub = connection.HelloWorld; // connection.<hubname> (hubname is CASE-SENSITIVE)
+                function () {
 
                     //register all the clients methods first
-                    helloHub.client.sayHello = function(message) {
+                    helloHub.client.sayHello = function (message) {
                         $("#message").append($('<p>', {
-                            html : message
+                            html: message
                         }));
                     };
 
@@ -33,11 +31,7 @@
                         $('#updatedCount').html(clientCount);
                     }
 
-                    connection.hub.start()
-                        .done(function() {
-                            helloHub.server.sayHelloWorld();
-                        });
-                })
+                });
     </script>
 
 }

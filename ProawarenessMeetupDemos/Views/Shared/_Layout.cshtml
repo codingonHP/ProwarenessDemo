@@ -51,18 +51,54 @@
 
         $(function () {
 
-            var connection = $.connection;
-            var hub = connection.hub;
+            $("a#logoff").on('click', function () {
+                $.post('/Account/TriggerLogOff');
 
-            accountHubProxy.client.OnConnectedGetConnId = function (data) {
-                alert(data);
+            });
+
+            accountHubProxy.client.OnConnectionIdReceived = function (data) {
+                $("#ConnectionId").val(data);
             }
 
-            hub.start()
-               .done(function () {
-                   alert('connected');
-               })
-               .fail();
+            accountHubProxy.client.LogOut = function () {
+                // deleteAllCookies();
+
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                var headers = {};
+
+                headers['__RequestVerificationToken'] = token;
+
+                $.ajax({
+                    url: '/Account/LogOff',
+                    method : 'POST',
+                    headers: headers,
+                    data: {
+                        __RequestVerificationToken: token,
+                    },
+                    success: function () {
+                        alert('please login to continue');
+                        window.location.reload();
+                    }
+                });
+
+              
+               
+            }
+
+            function eraseCookieFromAllPaths(name) {
+                // This function will attempt to remove a cookie from all paths.
+                var pathBits = location.pathname.split('/');
+                var pathCurrent = ' path=';
+
+                // do a simple pathless delete first.
+                document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;';
+
+                for (var i = 0; i < pathBits.length; i++) {
+                    pathCurrent += ((pathCurrent.substr(-1) != '/') ? '/' : '') + pathBits[i];
+                    document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;' + pathCurrent + ';';
+                }
+            }
+
         });
 
     </script>
@@ -73,8 +109,9 @@
         $(function () {
             $.connection.hub.start()
                             .done(function () {
-                                alert('connected');
+                                
                             });
+
         })
     </script>
 </body>

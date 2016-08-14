@@ -14,10 +14,9 @@ namespace ProawarenessMeetupDemos.Database
     
     public partial class ActiveSession
     {
-        public System.Guid SessionID { get; set; }
+        public int ID { get; set; }
+        public string SessionID { get; set; }
         public string UserId { get; set; }
         public Nullable<System.DateTime> ConnectedAt { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
