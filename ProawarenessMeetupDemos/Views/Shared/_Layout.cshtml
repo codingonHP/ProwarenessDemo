@@ -106,10 +106,11 @@
     @RenderSection("scripts", required: false)
 
     <script>
+        window.connected = false;
         $(function () {
             $.connection.hub.start()
                             .done(function () {
-                                
+                                window.connected = true;
                             });
 
         })

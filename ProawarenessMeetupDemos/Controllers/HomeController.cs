@@ -46,5 +46,10 @@ namespace ProawarenessMeetupDemos.Controllers
         {
             return View();
         }
+
+        public ActionResult LongWorkReporting()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Long Work Reporting";
+}
+
+<style>
+    #progress {
+        padding: 10px;
+        background-color: beige;
+        border: 1px solid gray;
+        width: 0;
+    }
+</style>
+
+<h2>Long Work Reporting</h2>
+<div id="progress"></div>
+<p>
+    <button>Start work</button>
+</p>
+@section scripts{
+
+    <script>
+        $(function () {
+            var progressReportingProxy = $.connection.progressReporterHub;
+
+            progressReportingProxy.client.updateProgress = function (data) {
+                $("#progress").html(data);
+            }
+
+            $("button").on('click', function () {
+                if (window.connected) {
+                    var deferred = progressReportingProxy.server.doLongRunningThing();
+
+                    deferred.progress(function (workUpdate) {
+                        $("#progress").html(workUpdate);
+                        $("#progress").css({
+                            'width': workUpdate + '%',
+                            '-webkit-transition': 'width 0.1s', /* Safari */
+                            'transition': 'width 0.01s'
+                        });
+                    }).done(function (data) {
+                        alert('done' + data);
+                    });
+
+                } else {
+                    alert('not yet connected');
+                }
+
+            });
+
+
+        });
+
+    </script>
+}
+

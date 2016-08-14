@@ -249,6 +249,7 @@
     <Compile Include="Hubs\DrawingHub.cs" />
     <Compile Include="Hubs\GeoLocationHub.cs" />
     <Compile Include="Hubs\HelloHub.cs" />
+    <Compile Include="Hubs\ProgressReporterHub.cs" />
     <Compile Include="Hubs\ReaderTrackerHub.cs" />
     <Compile Include="Hubs\UserLoginHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -357,6 +358,7 @@
     <Content Include="Views\Home\GeoLocation.cshtml" />
     <Content Include="Views\Home\ChatApp.cshtml" />
     <Content Include="Views\Home\DrawingBoard.cshtml" />
+    <Content Include="Views\Home\LongWorkReporting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
