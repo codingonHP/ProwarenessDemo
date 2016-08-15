@@ -31,5 +31,6 @@ namespace ProawarenessMeetupDemos.Database
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<ActiveSession> ActiveSessions { get; set; }
+        public virtual DbSet<BookAuthor> BookAuthors { get; set; }
     }
 }

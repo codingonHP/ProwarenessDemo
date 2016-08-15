@@ -206,9 +206,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Business\BookAuthorBusiness.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataAccessLayer\BookAuthorDataAccessLayer.cs" />
     <Compile Include="Database\ActiveSession.cs">
       <DependentUpon>Proawareness.tt</DependentUpon>
     </Compile>
@@ -222,6 +224,9 @@
       <DependentUpon>Proawareness.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\AspNetUserLogin.cs">
+      <DependentUpon>Proawareness.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\BookAuthor.cs">
       <DependentUpon>Proawareness.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\C__MigrationHistory.cs">
@@ -253,8 +258,10 @@
     <Compile Include="Hubs\ReaderTrackerHub.cs" />
     <Compile Include="Hubs\UserLoginHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BookAuthorModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Modules\ErrorHandlerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\ClientManager.cs" />
@@ -359,6 +366,7 @@
     <Content Include="Views\Home\ChatApp.cshtml" />
     <Content Include="Views\Home\DrawingBoard.cshtml" />
     <Content Include="Views\Home\LongWorkReporting.cshtml" />
+    <Content Include="Views\Home\BookDashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

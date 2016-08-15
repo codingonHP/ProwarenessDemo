@@ -16,6 +16,7 @@ namespace ProawarenessMeetupDemos.Hubs
                 await Task.Delay(200);
                 progress.Report(i);
             }
+
             return "Job complete!";
         }
     }

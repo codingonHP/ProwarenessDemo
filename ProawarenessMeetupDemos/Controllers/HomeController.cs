@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProawarenessMeetupDemos.Business;
+using ProawarenessMeetupDemos.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -50,6 +52,22 @@ namespace ProawarenessMeetupDemos.Controllers
         public ActionResult LongWorkReporting()
         {
             return View();
+        }
+
+        public ActionResult BookDashboard()
+        {
+            BookAuthorBusiness bookAuthorBusiness = new BookAuthorBusiness();
+            var allRecords = bookAuthorBusiness.GetAllBookAuthorModel();
+
+            return View(allRecords);
+        }
+
+        [HttpPost]
+        public JsonResult UploadBookAuthorData(BookAuthorModel bookAuthorVm, HttpPostedFileBase Image)
+        {
+            BookAuthorBusiness bookAuthorBusiness = new BookAuthorBusiness();
+            bookAuthorBusiness.SaveBookAuthorData(bookAuthorVm);
+            return Json("done");
         }
     }
 }

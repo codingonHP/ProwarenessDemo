@@ -1,0 +1,96 @@
+﻿@model List<ProawarenessMeetupDemos.Models.BookAuthorModel>
+@{
+    ViewBag.Title = "BookDashboard";
+}
+
+<h2>Book Dashboard</h2>
+<div class="container">
+    <div class="row">
+        <button class="btn btn-primary" id="addNew">Add new record</button>
+    </div>
+    <div class="row">
+        <form id="dataForm">
+            <table class="table table-responsive table-striped">
+                <tr>
+                    <td>
+                        <input class="form-control" type="file" id="img" name="Image" value="upload image" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="bookName" name="BookName" placeholder="book name" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="author" name="AuthorName" placeholder="author name" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <table class="table table-responsive table-striped">
+            <tr>
+                <td></td>
+                <td>Book</td>
+                <td>Author</td>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src='data:image/jpeg;base64, @item.ImageBase64' style="width:64px; height:64px;" alt="book image"/></td>
+                    <td>@item.BookName</td>
+                    <td>@item.AuthorName</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+
+            $("#addNew").on('click', function () {
+
+                var that = this;
+                $(this).attr('disabled', 'disabled');
+                var formData = new FormData($('form#dataForm')[0]);
+
+                $.ajax({
+                    url: '/Home/UploadBookAuthorData',
+                    method: 'post',
+                    data: formData,
+                    contentType: false,
+                    dataType: 'json',
+                    processData: false,
+                    beforeSend: function () {
+                        $(that).html("Uploading ... ");
+
+                    },
+                    error: function (error) {
+                        alert('something went wrong and we don\'t want to tell ya all');
+                    },
+                    success: function (data) {
+                        $('input[type="text"]').val("");
+                        $('input[type="file"]').val("");
+                    },
+                    complete: function () {
+                        $(that).html("Add New Record");
+                        $(that).removeAttr('disabled');
+                    }
+
+                });
+
+
+            });
+
+            var bookAuthorProxy = $.connection.bookAuthorHub;
+
+            //client registrations
+
+            
+        });
+    </script>
+
+}

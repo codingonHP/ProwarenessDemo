@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Owin;
 using ProawarenessMeetupDemos.Hubs;
+using ProawarenessMeetupDemos.Modules;
 
 [assembly: OwinStartupAttribute(typeof(ProawarenessMeetupDemos.Startup))]
 namespace ProawarenessMeetupDemos
@@ -14,6 +15,7 @@ namespace ProawarenessMeetupDemos
             //var IdProvider = new ConnectionFactory();
             //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => IdProvider);
 
+            GlobalHost.HubPipeline.AddModule(new ErrorHandlerModule());
             app.MapSignalR();
         }
     }
