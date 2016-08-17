@@ -1,4 +1,6 @@
-﻿using ProawarenessMeetupDemos.Business;
+﻿using Microsoft.AspNet.SignalR;
+using ProawarenessMeetupDemos.Business;
+using ProawarenessMeetupDemos.Hubs;
 using ProawarenessMeetupDemos.Models;
 using System;
 using System.Collections.Generic;
@@ -63,10 +65,14 @@ namespace ProawarenessMeetupDemos.Controllers
         }
 
         [HttpPost]
-        public JsonResult UploadBookAuthorData(BookAuthorModel bookAuthorVm, HttpPostedFileBase Image)
+        public JsonResult UploadBookAuthorData(BookAuthorModel bookAuthorVm)
         {
             BookAuthorBusiness bookAuthorBusiness = new BookAuthorBusiness();
             bookAuthorBusiness.SaveBookAuthorData(bookAuthorVm);
+
+            var bookAuthorHubContext = GlobalHost.ConnectionManager.GetHubContext<BookAuthorHub>();
+            bookAuthorHubContext.Clients.All.UpdateClientWithFreshData(bookAuthorVm);
+
             return Json("done");
         }
     }

@@ -24,6 +24,9 @@ namespace ProawarenessMeetupDemos.Business
                 }
 
                 bookAuthorDataAccess.SaveBookAuthorData(bookAuthorVm);
+                bookAuthorVm.ImageBase64 = Convert.ToBase64String(bookAuthorVm.BookImageBytes);
+                bookAuthorVm.Image = null;
+                bookAuthorVm.BookImageBytes = null;
 
                 return true;
             }
