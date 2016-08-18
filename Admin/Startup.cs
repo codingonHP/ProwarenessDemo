@@ -8,7 +8,10 @@ namespace Admin
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
+            app.MapSignalR("/chatapp/proxy/js",new Microsoft.AspNet.SignalR.HubConfiguration {
+                EnableDetailedErrors = true,
+                EnableJSONP = true
+            });
             ConfigureAuth(app);
         }
     }

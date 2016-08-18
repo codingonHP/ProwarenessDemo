@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25402.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProawarenessMeetupDemos", "ProawarenessMeetupDemos\ProawarenessMeetupDemos.csproj", "{4B1DBE55-99F9-4E43-B89D-7671E0FD7F2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{3BAAFDAF-33DC-4943-B5D4-2505E6E7A7A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "ChatClient\ChatClient.csproj", "{7D1E6D7A-E69A-47E5-9058-78137FD4C094}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3BAAFDAF-33DC-4943-B5D4-2505E6E7A7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BAAFDAF-33DC-4943-B5D4-2505E6E7A7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BAAFDAF-33DC-4943-B5D4-2505E6E7A7A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
