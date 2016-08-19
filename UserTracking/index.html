@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Spy</title>
+    <meta charset="utf-8" />
+    <style>
+        .container {
+            padding: 5px;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .container div {
+            padding: 15px;
+            width: auto;
+            max-width: 100%;
+            margin: 10px;
+            border: 1px solid gray;
+            background-color: burlywood;
+            overflow-x: scroll;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+
+    </div>
+
+
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="http://localhost:57407/realtime/js"></script>
+    <script>
+        $(function () {
+
+            var trackUserProxy = $.connection.trackerHub;
+            trackUserProxy.client.trackClientsInfo = function (data) {
+                $("<div>", {
+                    text: data
+                }).appendTo("div.container");
+            }
+
+            $.connection.hub.url = "http://localhost:57407/realtime/";
+            $.connection.hub.start()
+                            .done(function () {
+                                console.log('connected..');
+                            })
+                            .fail();
+        });
+    </script>
+</body>
+</html>
