@@ -39,7 +39,8 @@
     @Scripts.Render("~/bundles/jquery")
 
     <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
-    <script src="~/chatapp/proxy/js"></script>
+    @*<script src="~/signalr/js"></script>*@
+    <script src="http://localhost:58367/signalr/hubs"></script>
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -47,7 +48,7 @@
     <script>
         $(function () {
             window.signalRConnected = false;
-            $.connection.hub.url = "/chatapp/proxy/js";
+            $.connection.hub.url = "http://localhost:58367/signalr";
             $.connection.hub.start()
                             .done(function () {
                                 window.signalRConnected = true;

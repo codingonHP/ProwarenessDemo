@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div>
+        <h1 id="date"></h1>
+    </div>
+    <button id="start" value="start">Start</button>
+    <button id="stop" value="stop">Stop</button>
+
+    <script src="Scripts/jquery-3.1.0.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.js"></script>
+
+    <script>
+        $(function () {
+            var _continue = true;
+            var connection = $.connection("/signalr"); //Important to add URL.
+
+            connection.received(function (data) {
+                $("#date").text(data);
+            });
+
+            connection.start()
+                      .done(function () {
+                          
+                          $("#start").on('click', function () {
+                              connection.send("start");
+                          });
+
+                          $("#stop").on('click', function () {
+                              connection.send("stop");
+                          });
+
+                      })
+                      .fail(function () {
+                          alert('something is not right');
+                      });
+
+        })
+
+    </script>
+</body>
+</html>

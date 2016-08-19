@@ -32,19 +32,7 @@ namespace ProawarenessMeetupDemos.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+      
 
         public ActionResult DrawingBoard()
         {
@@ -74,6 +62,25 @@ namespace ProawarenessMeetupDemos.Controllers
             bookAuthorHubContext.Clients.All.UpdateClientWithFreshData(bookAuthorVm);
 
             return Json("done");
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "vishal_24_anand@hotmail.com";
+
+            return View();
+        }
+
+        public ActionResult PersistentDate()
+        {
+            return View();
         }
     }
 }

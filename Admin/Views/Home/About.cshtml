@@ -5,3 +5,16 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+<h2 id="clientCount"></h2>
+@section scripts{
+    <script>
+        $(function () {
+            var helloWorldHub = $.connection.HelloWorld;
+
+            helloWorldHub.client.updateClientsConnectedCount = function (data) {
+                $('#clientCount').html('<span>'  + data + '</span>')
+            }
+        })
+    </script>
+
+}

@@ -1,16 +1,50 @@
 ﻿@{
     ViewBag.Title = "Home Page - SignalR Demo";
 }
-
+<style>
+    .col-md-4 {
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+        background-color: whitesmoke;
+        border: 1px solid gray;
+        box-shadow: 1px 1px 1px 1px gray;
+    }
+</style>
 <div class="jumbotron">
-    <h1><a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a></h1>
-</div>
-
-<div class="row">
     <h1>
+        <a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a>
         <span id="updatedCount" class="alert alert-danger"></span>
     </h1>
-    <div class="btn btn-block btn-primary" id="message"></div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Reader Tracking", "TrackingReaders", "Home")
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Geo Location", "GeoLocation", "Home")
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Chat App", "ChatApp", "Home")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Drawing Board", "DrawingBoard", "Home")
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Progress reporting", "LongWorkReporting", "Home")
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Book Dash-board", "BookDashboard", "Home")
+        </div>
+    </div>
+
+
 </div>
 
 @section scripts{

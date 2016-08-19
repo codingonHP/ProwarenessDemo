@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
 using ProawarenessMeetupDemos.Hubs;
 using ProawarenessMeetupDemos.Modules;
@@ -16,7 +17,12 @@ namespace ProawarenessMeetupDemos
             //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => IdProvider);
 
             GlobalHost.HubPipeline.AddModule(new ErrorHandlerModule());
-            app.MapSignalR();
+            app.Map("/signalr", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+                var hubConfiguration = new HubConfiguration { };
+                map.RunSignalR(hubConfiguration);
+            });
         }
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "ChatClient\ChatClient.csproj", "{7D1E6D7A-E69A-47E5-9058-78137FD4C094}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistentExamples", "PersistentExamples\PersistentExamples.csproj", "{7C2852C6-9316-4D41-8A83-1427EC648E98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D1E6D7A-E69A-47E5-9058-78137FD4C094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2852C6-9316-4D41-8A83-1427EC648E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2852C6-9316-4D41-8A83-1427EC648E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2852C6-9316-4D41-8A83-1427EC648E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2852C6-9316-4D41-8A83-1427EC648E98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
